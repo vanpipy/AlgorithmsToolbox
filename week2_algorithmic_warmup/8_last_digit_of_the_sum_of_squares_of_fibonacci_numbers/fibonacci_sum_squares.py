@@ -15,9 +15,9 @@ def fibonacci_number(n):
         x0 = c.pop()
         x1 = c[len(c) - 1]
         if x1 % 2 == 0:
-            a[x1] = a[x0] * (2 * a[x0 + 1] - a[x0])
+            a[x1] = a[x0] ** 2 + 2 * a[x0] * a[x0 - 1]
         else:
-            a[x1] = a[x0] ** 2 + a[x0 + 1] ** 2
+            a[x1] = 2 * a[x0] ** 2 + a[x0 - 1] ** 2 + 2 * a[x0] * a[x0 - 1]
 
     return a[index]
 
