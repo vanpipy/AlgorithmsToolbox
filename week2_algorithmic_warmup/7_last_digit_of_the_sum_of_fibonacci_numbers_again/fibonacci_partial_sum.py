@@ -8,7 +8,7 @@ def fibonacci_number(n):
 
     result = (((1 + sqrt(5)) / 2) ** n - ((1 - sqrt(5)) / 2) ** n) // sqrt(5)
 
-    return result
+    return int(result)
 
 def fibonacci_partial_sum_naive(from_, to):
     from_sum = fibonacci_number(from_ + 2) - 1

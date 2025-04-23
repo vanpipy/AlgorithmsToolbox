@@ -6,7 +6,7 @@ def fibonacci_number(n):
 
     result = (((1 + sqrt(5)) / 2) ** n - ((1 - sqrt(5)) / 2) ** n) // sqrt(5)
 
-    return result
+    return int(result)
 
 def fibonacci_sum_squares(n):
     n0 = fibonacci_number(n)

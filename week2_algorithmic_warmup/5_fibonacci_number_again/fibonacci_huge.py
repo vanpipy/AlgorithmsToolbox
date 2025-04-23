@@ -6,7 +6,7 @@ def fibonacci_number(n):
 
     result = (((1 + sqrt(5)) / 2) ** n - ((1 - sqrt(5)) / 2) ** n) // sqrt(5)
 
-    return result
+    return int(result)
 
 def fibonacci_huge_naive(n, m):
     current = fibonacci_number(n)
