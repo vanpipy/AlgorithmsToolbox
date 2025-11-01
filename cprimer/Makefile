@@ -30,7 +30,9 @@ UNITY_DIR = third_party/unity
 UNITY_C = $(UNITY_DIR)/unity.c
 UNITY_H = $(UNITY_DIR)/unity.h
 UNITY_INTERNALS_H = $(UNITY_DIR)/unity_internals.h
-TEST_SRC = $(SRC_DIR)/test_array.c
+TEST_RUNNER = $(SRC_DIR)/test_all.c
+TEST_SRC = $(SRC_DIR)/test_array.c $(SRC_DIR)/test_slist.c $(TEST_RUNNER)
+SLIST_SRC = $(SRC_DIR)/slist.c
 BIN_TEST = tests$(EXE)
 
 .PHONY: build run deps test clean
@@ -58,14 +60,14 @@ ifeq ($(CC),cl)
 $(BIN_MAIN): $(SRC_MAIN)
 	$(CC) $(SRC_MAIN) $(CFLAGS_COMMON) /Fe:$(BIN_MAIN)
 
-$(BIN_TEST): $(TEST_SRC) $(SRC_MAIN) $(UNITY_C)
-	$(CC) $(TEST_SRC) $(SRC_MAIN) $(UNITY_C) $(CFLAGS_COMMON) /DUNIT_TEST /Fe:$(BIN_TEST)
+$(BIN_TEST): $(TEST_SRC) $(SRC_MAIN) $(SLIST_SRC) $(UNITY_C)
+    $(CC) $(TEST_SRC) $(SRC_MAIN) $(SLIST_SRC) $(UNITY_C) $(CFLAGS_COMMON) /DUNIT_TEST /Fe:$(BIN_TEST)
 else
 $(BIN_MAIN): $(SRC_MAIN)
 	$(CC) $(CFLAGS_COMMON) $(SRC_MAIN) -o $(BIN_MAIN) $(LDFLAGS_COMMON)
 
-$(BIN_TEST): $(TEST_SRC) $(SRC_MAIN) $(UNITY_C)
-	$(CC) $(CFLAGS_COMMON) -DUNIT_TEST $(TEST_SRC) $(SRC_MAIN) $(UNITY_C) -o $(BIN_TEST) $(LDFLAGS_COMMON)
+$(BIN_TEST): $(TEST_SRC) $(SRC_MAIN) $(SLIST_SRC) $(UNITY_C)
+    $(CC) $(CFLAGS_COMMON) -DUNIT_TEST $(TEST_SRC) $(SRC_MAIN) $(SLIST_SRC) $(UNITY_C) -o $(BIN_TEST) $(LDFLAGS_COMMON)
 endif
 
 # Fetch Unity sources (third_party/unity) with curl/wget or PowerShell fallback

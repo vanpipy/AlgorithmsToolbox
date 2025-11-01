@@ -35,16 +35,23 @@ function Ensure-Unity {
 $compiler = Get-Compiler -Override $CC
 Ensure-Unity
 
-$test = Join-Path $PSScriptRoot 'src/test_array.c'
-$src = Join-Path $PSScriptRoot 'src/array.c'
+$tests = @(
+    (Join-Path $PSScriptRoot 'src/test_array.c'),
+    (Join-Path $PSScriptRoot 'src/test_slist.c'),
+    (Join-Path $PSScriptRoot 'src/test_all.c')
+)
+$srcs = @(
+    (Join-Path $PSScriptRoot 'src/array.c'),
+    (Join-Path $PSScriptRoot 'src/slist.c')
+)
 $unityDir = Join-Path $PSScriptRoot 'third_party/unity'
 $unityC = Join-Path $unityDir 'unity.c'
 $out = Join-Path $PSScriptRoot 'tests.exe'
 
 if ($compiler -eq "cl") {
-    & cl $test $src $unityC /nologo /I (Join-Path $PSScriptRoot 'src') /I $unityDir /DUNIT_TEST /Fe:$out
+    & cl $tests $srcs $unityC /nologo /I (Join-Path $PSScriptRoot 'src') /I $unityDir /DUNIT_TEST /Fe:$out
 } else {
-    & $compiler -std=c11 -I (Join-Path $PSScriptRoot 'src') -I $unityDir -DUNIT_TEST $test $src $unityC -o $out
+    & $compiler -std=c11 -I (Join-Path $PSScriptRoot 'src') -I $unityDir -DUNIT_TEST $tests $srcs $unityC -o $out
 }
 
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

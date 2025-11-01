@@ -36,7 +36,8 @@ fi
 
 "$CC" -std=c11 \
   -I "$SRC_DIR" -I "$UNITY_DIR" -DUNIT_TEST \
-  "$SRC_DIR/test_array.c" "$SRC_DIR/array.c" "$UNITY_DIR/unity.c" \
+  "$SRC_DIR/test_array.c" "$SRC_DIR/test_slist.c" "$SRC_DIR/test_all.c" \
+  "$SRC_DIR/array.c" "$SRC_DIR/slist.c" "$UNITY_DIR/unity.c" \
   -o "$OUT"
 
 echo "Running tests..."
