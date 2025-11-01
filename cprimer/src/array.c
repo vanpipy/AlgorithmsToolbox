@@ -1,6 +1,18 @@
 #include <stdio.h>
+
 #define MONTHS 12
 
+// Expose a simple API for testing
+int days_in_month(int month)
+{
+  int days[MONTHS] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+  if (month < 1 || month > MONTHS) {
+    return -1;
+  }
+  return days[month - 1];
+}
+
+#ifndef UNIT_TEST
 int main()
 {
   int days[MONTHS] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
@@ -10,4 +22,5 @@ int main()
   }
   return 0;
 }
+#endif
 
