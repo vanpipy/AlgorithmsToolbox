@@ -1,0 +1,1 @@
+struct SingleLinkedListNode *create_single_linked_node(int val);
