@@ -1,26 +1,51 @@
-#include <stdio.h>
+#include <stddef.h>
+#include <stdlib.h>
 
-#define MONTHS 12
+#define DEFAULT_CAPACITY 8
+#define EMPTY_VALUE -1
+#define CANNOT_POP -1
 
-// Expose a simple API for testing
-int days_in_month(int month)
-{
-  int days[MONTHS] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-  if (month < 1 || month > MONTHS) {
-    return -1;
-  }
-  return days[month - 1];
+struct DynamicArray {
+  int *data;
+  int size;
+  int capacity;
+};
+
+struct DynamicArray *create_array() {
+  struct DynamicArray *arr;
+  arr->size = 0;
+  arr->capacity = DEFAULT_CAPACITY;
+  arr->data = (int *)malloc(arr->capacity * sizeof(int));
+  return arr;
 }
 
-#ifndef UNIT_TEST
-int main()
-{
-  int days[MONTHS] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-  int index = 0;
-  for (int index = 0; index < MONTHS; index++) {
-    printf("Month %2d has %2d days.\n", index + 1, days[index]);
-  }
-  return 0;
+void resize(struct DynamicArray *arr, int scale) {
+  struct DynamicArray *new_arr;
+  new_arr->capacity = arr->capacity * (2^scale);
+  new_arr->data = (int *)realloc(arr->data, new_arr->capacity * sizeof(int));
+  arr->capacity = new_arr->capacity;
+  arr->data = new_arr->data;
+  free(new_arr);
 }
-#endif
 
+int push(struct DynamicArray *arr, int value) {
+  if (arr->capacity < arr->size + 1) {
+    resize(arr, 1);
+  }
+  arr->data[arr->size + 1] = value;
+  arr->size = arr->size + 1;
+  return arr->size;
+}
+
+int pop(struct DynamicArray *arr) {
+  if (arr->size == 0) {
+    return CANNOT_POP;
+  }
+  if (arr->size - 1 < arr->capacity / 2) {
+    resize(arr, -1);
+  }
+  arr->size = arr->size - 1;
+  int temp = arr->data[arr->size - 1];
+  arr->data[arr->size - 1] = EMPTY_VALUE;
+  return temp;
+}
