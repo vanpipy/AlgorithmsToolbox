@@ -1,15 +1,5 @@
-#include <stddef.h>
+#include "array.h"
 #include <stdlib.h>
-
-#define DEFAULT_CAPACITY 8
-#define EMPTY_VALUE -1
-#define CANNOT_POP -1
-
-struct DynamicArray {
-  int *data;
-  int size;
-  int capacity;
-};
 
 struct DynamicArray *create_array() {
   struct DynamicArray *arr;

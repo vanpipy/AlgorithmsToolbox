@@ -1,0 +1,22 @@
+[
+  {
+    "directory": "e:\\Project\\AlgorithmsToolbox\\cprimer",
+    "command": "clang -I./include -I./lib/unity tests/test_array.c src/array.c lib/unity/unity.c -o bin/test_array",
+    "file": "tests/test_array.c"
+  },
+  {
+    "directory": "e:\\Project\\AlgorithmsToolbox\\cprimer",
+    "command": "clang -I./include src/array.c -c -o bin/array.o",
+    "file": "src/array.c"
+  },
+  {
+    "directory": "e:\\Project\\AlgorithmsToolbox\\cprimer",
+    "command": "clang -I./include -I./lib/unity tests/test_single_linked_list.c src/single_linked_list.c lib/unity/unity.c -o bin/test_single_linked_list",
+    "file": "tests/test_single_linked_list.c"
+  },
+  {
+    "directory": "e:\\Project\\AlgorithmsToolbox\\cprimer",
+    "command": "clang -I./include src/single_linked_list.c -c -o bin/single_linked_list.o",
+    "file": "src/single_linked_list.c"
+  }
+]

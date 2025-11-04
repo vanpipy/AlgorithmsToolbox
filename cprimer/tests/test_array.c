@@ -1,6 +1,6 @@
-#include <stdlib.h>
 #include "unity.h"
 #include "array.h"
+#include <stdlib.h>
 
 struct DynamicArray *arr;
 
@@ -9,7 +9,9 @@ void setUp(void) {
 }
 
 void tearDown() {
-  free(arr);
+  if (arr != NULL) {
+    free(arr);
+  }
 }
 
 void test_arr_has_8_capacity_default(void) {
@@ -43,7 +45,19 @@ void test_pop_and_the_empty_equals_empty_value(void) {
 
 void test_pop_is_blocked_when_size_is_0(void) {
   for (int i = 0; i <= 6; i++) {
-    pop(arr, i);
+    pop(arr);
   }
   TEST_ASSERT_EQUAL_INT(CANNOT_POP, pop(arr));
+}
+
+int main(void) {
+  UNITY_BEGIN();
+  RUN_TEST(test_arr_has_8_capacity_default);
+  RUN_TEST(test_push_and_return_arr_size);
+  RUN_TEST(test_pop_and_return_removed_value);
+  RUN_TEST(test_push_9_times_and_trigger_resize);
+  RUN_TEST(test_pop_when_size_less_than_8_and_trigger_resize);
+  RUN_TEST(test_pop_and_the_empty_equals_empty_value);
+  RUN_TEST(test_pop_is_blocked_when_size_is_0);
+  return UNITY_END();
 }
