@@ -29,13 +29,29 @@ int push(struct DynamicArray *arr, int value) {
 
 int pop(struct DynamicArray *arr) {
   if (arr->size == 0) {
-    return CANNOT_POP;
+    return CANNOT_DONE;
   }
   if (arr->size - 1 < arr->capacity / 2) {
     resize(arr, -1);
   }
   arr->size = arr->size - 1;
   int temp = arr->data[arr->size - 1];
+  arr->data[arr->size - 1] = EMPTY_VALUE;
+  return temp;
+}
+
+int shift(struct DynamicArray *arr) {
+  if (arr->size == 0) {
+    return CANNOT_DONE;
+  }
+  if (arr->size - 1 < arr->capacity / 2) {
+    resize(arr, -1);
+  }
+  arr->size = arr->size - 1;
+  int temp = arr->data[0];
+  for (int i = 0; i < arr->size; i++) {
+    arr->data[i] = arr->data[i + 1];
+  }
   arr->data[arr->size - 1] = EMPTY_VALUE;
   return temp;
 }

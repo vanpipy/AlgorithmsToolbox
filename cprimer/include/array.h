@@ -3,7 +3,7 @@
 
 #define DEFAULT_CAPACITY 8
 #define EMPTY_VALUE -1
-#define CANNOT_POP -1
+#define CANNOT_DONE -1
 
 struct DynamicArray {
   int *data;
@@ -14,5 +14,6 @@ struct DynamicArray {
 struct DynamicArray *create_array();
 int push(struct DynamicArray* arr, int value);
 int pop(struct DynamicArray* arr);
+int shift(struct DynamicArray* arr);
 
 #endif // ARRAY_H
