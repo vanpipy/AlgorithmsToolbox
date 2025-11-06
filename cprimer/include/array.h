@@ -2,18 +2,16 @@
 #define ARRAY_H
 
 #define DEFAULT_CAPACITY 8
-#define EMPTY_VALUE -1
-#define CANNOT_DONE -1
 
 struct DynamicArray {
-  int *data;
+  void **data;
   int size;
   int capacity;
 };
 
 struct DynamicArray *create_array();
-int push(struct DynamicArray* arr, int value);
-int pop(struct DynamicArray* arr);
-int shift(struct DynamicArray* arr);
+int push(struct DynamicArray* arr, void *value);
+void *pop(struct DynamicArray* arr);
+void *shift(struct DynamicArray* arr);
 
 #endif // ARRAY_H
