@@ -32,15 +32,15 @@ function Build-TestLinkedList {
 function Run-Tests {
     Write-Host "Running tests..." -ForegroundColor Cyan
     
-    if (Test-Path "bin/test_array") {
+    if (Test-Path "bin/test_array.exe") {
         Write-Host "=== Running test_array ===" -ForegroundColor Yellow
-        & ./bin/test_array
+        & .\bin\test_array.exe
         if ($LASTEXITCODE -ne 0) { Write-Warning "test_array failed with exit code $LASTEXITCODE" }
     }
     
-    if (Test-Path "bin/test_single_linked_list") {
+    if (Test-Path "bin/test_single_linked_list.exe") {
         Write-Host "=== Running test_single_linked_list ===" -ForegroundColor Yellow
-        & ./bin/test_single_linked_list
+        & .\bin\test_single_linked_list.exe
         if ($LASTEXITCODE -ne 0) { Write-Warning "test_single_linked_list failed with exit code $LASTEXITCODE" }
     }
 }
