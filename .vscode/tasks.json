@@ -1,0 +1,48 @@
+{
+    // Build tasks that call PowerShell build script
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build: test_array",
+            "type": "shell",
+            "command": ".\\build.ps1 test_array",
+            "options": { "cwd": "${workspaceFolder}/cprimer" },
+            "problemMatcher": []
+        },
+        {
+            "label": "build: test_array (Debug)",
+            "type": "shell",
+            "command": ".\\build.ps1 test_array debug",
+            "options": { "cwd": "${workspaceFolder}/cprimer" },
+            "problemMatcher": []
+        },
+        {
+            "label": "build: test_queue",
+            "type": "shell",
+            "command": ".\\build.ps1 test_queue",
+            "options": { "cwd": "${workspaceFolder}/cprimer" },
+            "problemMatcher": []
+        },
+        {
+            "label": "build: test_queue (Debug)",
+            "type": "shell",
+            "command": ".\\build.ps1 test_queue debug",
+            "options": { "cwd": "${workspaceFolder}/cprimer" },
+            "problemMatcher": []
+        },
+        {
+            "label": "build: test_single_linked_list",
+            "type": "shell",
+            "command": ".\\build.ps1 test_single_linked_list",
+            "options": { "cwd": "${workspaceFolder}/cprimer" },
+            "problemMatcher": []
+        },
+        {
+            "label": "build: test_single_linked_list (Debug)",
+            "type": "shell",
+            "command": ".\\build.ps1 test_single_linked_list debug",
+            "options": { "cwd": "${workspaceFolder}/cprimer" },
+            "problemMatcher": []
+        }
+    ]
+}

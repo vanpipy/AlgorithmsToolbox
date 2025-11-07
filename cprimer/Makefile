@@ -2,10 +2,20 @@
 
 # Compiler and flags
 CC = clang
-CFLAGS = -I./include
+
+# Build configuration: set DEBUG=1 to enable debug symbols
+# Usage: make DEBUG=1 (Debug) or make (Release)
+DEBUG ?= 0
+
+CFLAGS_BASE = -I./include
+ifeq ($(DEBUG),1)
+  CFLAGS := $(CFLAGS_BASE) -g -O0 -fno-omit-frame-pointer
+else
+  CFLAGS := $(CFLAGS_BASE) -O2
+endif
 
 # Targets
-TARGETS = bin/test_array bin/test_single_linked_list
+TARGETS = bin/test_array bin/test_single_linked_list bin/test_queue
 
 # Default target
 all: $(TARGETS)
@@ -18,6 +28,11 @@ bin/test_array: tests/test_array.c src/array.c lib/unity/unity.c
 # Test linked list with Unity framework  
 bin/test_single_linked_list: tests/test_single_linked_list.c src/single_linked_list.c lib/unity/unity.c
 	@echo "Building test_single_linked_list..."
+	$(CC) $(CFLAGS) -D_Noreturn= $^ -o $@
+
+# Test queue with Unity framework
+bin/test_queue: tests/test_queue.c src/queue.c lib/unity/unity.c
+	@echo "Building test_queue..."
 	$(CC) $(CFLAGS) -D_Noreturn= $^ -o $@
 
 # Run tests

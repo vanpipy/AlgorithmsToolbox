@@ -1,0 +1,49 @@
+{
+    // CodeLLDB debug configurations for Windows (vadimcn.vscode-lldb)
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug: test_array (CodeLLDB)",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/cprimer/bin/test_array.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}/cprimer",
+            "console": "integratedTerminal",
+            "stopOnEntry": false,
+            "preLaunchTask": "build: test_array (Debug)"
+        },
+        {
+            "name": "Debug: test_queue (CodeLLDB)",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/cprimer/bin/test_queue.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}/cprimer",
+            "console": "integratedTerminal",
+            "stopOnEntry": false,
+            "preLaunchTask": "build: test_queue (Debug)"
+        },
+        {
+            "name": "Debug: test_single_linked_list (CodeLLDB)",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/cprimer/bin/test_single_linked_list.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}/cprimer",
+            "console": "integratedTerminal",
+            "stopOnEntry": false,
+            "preLaunchTask": "build: test_single_linked_list (Debug)"
+        },
+        {
+            "name": "Debug: custom program (CodeLLDB)",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/cprimer/bin/<program>.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}/cprimer",
+            "console": "integratedTerminal",
+            "stopOnEntry": false
+        }
+    ]
+}

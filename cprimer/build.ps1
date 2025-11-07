@@ -6,6 +6,18 @@ $ErrorActionPreference = "Stop"
 # Compiler
 $CC = "clang"
 
+# Build configuration (Release by default). Set via second arg (debug/release)
+# or environment variable DEBUG=1
+$config = "Release"
+$configArg = $args[1]
+if ($configArg) {
+    switch ($configArg.ToLower()) {
+        "debug" { $config = "Debug" }
+        "release" { $config = "Release" }
+    }
+}
+if ($env:DEBUG -eq "1") { $config = "Debug" }
+
 # Create bin directory if it doesn't exist
 if (-not (Test-Path "bin")) {
     New-Item -ItemType Directory -Path "bin" | Out-Null
@@ -13,18 +25,35 @@ if (-not (Test-Path "bin")) {
 
 # Build functions
 function Build-TestArray {
-    Write-Host "Building test_array..." -ForegroundColor Yellow
-    & $CC -Iinclude -D_Noreturn= tests/test_array.c src/array.c lib/unity/unity.c -o bin/test_array.exe
+    Write-Host "Building test_array ($config)..." -ForegroundColor Yellow
+    $flags = @()
+    if ($config -eq "Debug") { $flags += @("-g","-O0","-fno-omit-frame-pointer") } else { $flags += @("-O2") }
+    $flags += @("-Iinclude","-D_Noreturn=")
+    & $CC $flags tests/test_array.c src/array.c lib/unity/unity.c -o bin/test_array.exe
     if ($LASTEXITCODE -ne 0) {
         throw "Compilation failed for test_array"
     }
 }
 
 function Build-TestLinkedList {
-    Write-Host "Building test_single_linked_list..." -ForegroundColor Yellow
-    & $CC -Iinclude -D_Noreturn= tests/test_single_linked_list.c src/single_linked_list.c lib/unity/unity.c -o bin/test_single_linked_list.exe
+    Write-Host "Building test_single_linked_list ($config)..." -ForegroundColor Yellow
+    $flags = @()
+    if ($config -eq "Debug") { $flags += @("-g","-O0","-fno-omit-frame-pointer") } else { $flags += @("-O2") }
+    $flags += @("-Iinclude","-D_Noreturn=")
+    & $CC $flags tests/test_single_linked_list.c src/single_linked_list.c lib/unity/unity.c -o bin/test_single_linked_list.exe
     if ($LASTEXITCODE -ne 0) {
         throw "Compilation failed for test_single_linked_list"
+    }
+}
+
+function Build-TestQueue {
+    Write-Host "Building test_queue ($config)..." -ForegroundColor Yellow
+    $flags = @()
+    if ($config -eq "Debug") { $flags += @("-g","-O0","-fno-omit-frame-pointer") } else { $flags += @("-O2") }
+    $flags += @("-Iinclude","-D_Noreturn=")
+    & $CC $flags tests/test_queue.c src/queue.c lib/unity/unity.c -o bin/test_queue.exe
+    if ($LASTEXITCODE -ne 0) {
+        throw "Compilation failed for test_queue"
     }
 }
 
@@ -55,15 +84,17 @@ try {
         switch ($target) {
             "test_array" { Build-TestArray }
             "test_single_linked_list" { Build-TestLinkedList }
+            "test_queue" { Build-TestQueue }
             default { Write-Host "Unknown target: $target" -ForegroundColor Red; exit 1 }
         }
     } else {
         # Build all targets
         Build-TestArray
         Build-TestLinkedList
+        Build-TestQueue
     }
     
-    Write-Host "Build completed successfully!" -ForegroundColor Green
+    Write-Host "Build completed successfully! ($config)" -ForegroundColor Green
     
     # Ask if user wants to run tests (only if no specific target was specified)
     if (-not $target) {
