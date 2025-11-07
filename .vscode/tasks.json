@@ -43,6 +43,20 @@
             "command": ".\\build.ps1 test_single_linked_list debug",
             "options": { "cwd": "${workspaceFolder}/cprimer" },
             "problemMatcher": []
+        },
+        {
+            "label": "build: test_string",
+            "type": "shell",
+            "command": ".\\build.ps1 test_string",
+            "options": { "cwd": "${workspaceFolder}/cprimer" },
+            "problemMatcher": []
+        },
+        {
+            "label": "build: test_string (Debug)",
+            "type": "shell",
+            "command": ".\\build.ps1 test_string debug",
+            "options": { "cwd": "${workspaceFolder}/cprimer" },
+            "problemMatcher": []
         }
     ]
 }

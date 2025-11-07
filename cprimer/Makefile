@@ -15,7 +15,7 @@ else
 endif
 
 # Targets
-TARGETS = bin/test_array bin/test_single_linked_list bin/test_queue
+TARGETS = bin/test_array bin/test_single_linked_list bin/test_queue bin/test_string
 
 # Default target
 all: $(TARGETS)
@@ -35,12 +35,18 @@ bin/test_queue: tests/test_queue.c src/array.c src/queue.c lib/unity/unity.c
 	@echo "Building test_queue..."
 	$(CC) $(CFLAGS) -D_Noreturn= $^ -o $@
 
+# Test string with Unity framework
+bin/test_string: tests/test_string.c src/string.c lib/unity/unity.c
+	@echo "Building test_string..."
+	$(CC) $(CFLAGS) -D_Noreturn= $^ -o $@
+
 # Run tests
 test: all
 	@echo "Running tests..."
 	@if [ -f bin/test_array ]; then echo "=== Running test_array ==="; ./bin/test_array; fi
 	@if [ -f bin/test_single_linked_list ]; then echo "=== Running test_single_linked_list ==="; ./bin/test_single_linked_list; fi
 	@if [ -f bin/test_queue ]; then echo "=== Running test_queue ==="; ./bin/test_queue; fi
+	@if [ -f bin/test_string ]; then echo "=== Running test_string ==="; ./bin/test_string; fi
 
 # Clean build artifacts
 clean:

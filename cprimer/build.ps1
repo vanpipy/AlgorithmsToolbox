@@ -57,6 +57,16 @@ function Build-TestQueue {
     }
 }
 
+function Build-TestString {
+    Write-Host "Building test_string ($config)..." -ForegroundColor Yellow
+    $flags = @()
+    if ($config -eq "Debug") { $flags += @("-g","-O0","-fno-omit-frame-pointer") } else { $flags += @("-O2") }
+    $flags += @("-Iinclude","-D_Noreturn=")
+    & $CC $flags tests/test_string.c src/string.c lib/unity/unity.c -o bin/test_string.exe
+    if ($LASTEXITCODE -ne 0) {
+        throw "Compilation failed for test_string"
+    }
+}
 # Run tests functions
 function Run-Tests {
     Write-Host "Running tests..." -ForegroundColor Cyan
@@ -78,6 +88,12 @@ function Run-Tests {
         & .\bin\test_queue.exe
         if ($LASTEXITCODE -ne 0) { Write-Warning "test_queue failed with exit code $LASTEXITCODE" }
     }
+
+     if (Test-Path "bin/test_string.exe") {
+        Write-Host "=== Running test_string ===" -ForegroundColor Yellow
+        & .\bin\test_string.exe
+        if ($LASTEXITCODE -ne 0) { Write-Warning "test_string failed with exit code $LASTEXITCODE" }
+    }
 }
 
 # Handle command line arguments
@@ -91,6 +107,7 @@ try {
             "test_array" { Build-TestArray }
             "test_single_linked_list" { Build-TestLinkedList }
             "test_queue" { Build-TestQueue }
+            "test_string" { Build-TestString }
             default { Write-Host "Unknown target: $target" -ForegroundColor Red; exit 1 }
         }
     } else {
@@ -98,6 +115,7 @@ try {
         Build-TestArray
         Build-TestLinkedList
         Build-TestQueue
+        Build-TestString
     }
     
     Write-Host "Build completed successfully! ($config)" -ForegroundColor Green

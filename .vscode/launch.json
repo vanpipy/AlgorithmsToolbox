@@ -44,6 +44,17 @@
             "cwd": "${workspaceFolder}/cprimer",
             "console": "integratedTerminal",
             "stopOnEntry": false
+        },
+        {
+            "name": "Debug: test_string (CodeLLDB)",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/cprimer/bin/test_string.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}/cprimer",
+            "console": "integratedTerminal",
+            "stopOnEntry": false,
+            "preLaunchTask": "build: test_string (Debug)"
         }
     ]
 }
