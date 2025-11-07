@@ -4,5 +4,5 @@ struct Queue {
 
 struct Queue *create_queue();
 
-int enqueue(struct Queue *queue, int value);
+int enqueue(struct Queue *queue, int *value);
 int dequeue(struct Queue *queue);

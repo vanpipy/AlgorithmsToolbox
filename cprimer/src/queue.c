@@ -1,6 +1,6 @@
 #include <stdlib.h>
-#include "queue.h"
 #include "array.h"
+#include "queue.h"
 
 struct Queue *create_queue() {
   struct Queue *queue = malloc(sizeof(struct Queue));
@@ -8,11 +8,12 @@ struct Queue *create_queue() {
   return queue;
 }
 
-int enqueue(struct Queue *queue, int value) {
+int enqueue(struct Queue *queue, int *value) {
   push(queue->arr, value);
   return queue->arr->size;
 }
 
 int dequeue(struct Queue *queue) {
-  return shift(queue->arr);
+  int *v = shift(queue->arr);
+  return *v;
 }

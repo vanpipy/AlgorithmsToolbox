@@ -31,7 +31,7 @@ bin/test_single_linked_list: tests/test_single_linked_list.c src/single_linked_l
 	$(CC) $(CFLAGS) -D_Noreturn= $^ -o $@
 
 # Test queue with Unity framework
-bin/test_queue: tests/test_queue.c src/queue.c lib/unity/unity.c
+bin/test_queue: tests/test_queue.c src/array.c src/queue.c lib/unity/unity.c
 	@echo "Building test_queue..."
 	$(CC) $(CFLAGS) -D_Noreturn= $^ -o $@
 
@@ -40,6 +40,7 @@ test: all
 	@echo "Running tests..."
 	@if [ -f bin/test_array ]; then echo "=== Running test_array ==="; ./bin/test_array; fi
 	@if [ -f bin/test_single_linked_list ]; then echo "=== Running test_single_linked_list ==="; ./bin/test_single_linked_list; fi
+	@if [ -f bin/test_queue ]; then echo "=== Running test_queue ==="; ./bin/test_queue; fi
 
 # Clean build artifacts
 clean:

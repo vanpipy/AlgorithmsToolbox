@@ -51,7 +51,7 @@ function Build-TestQueue {
     $flags = @()
     if ($config -eq "Debug") { $flags += @("-g","-O0","-fno-omit-frame-pointer") } else { $flags += @("-O2") }
     $flags += @("-Iinclude","-D_Noreturn=")
-    & $CC $flags tests/test_queue.c src/queue.c lib/unity/unity.c -o bin/test_queue.exe
+    & $CC $flags tests/test_queue.c src/array.c src/queue.c lib/unity/unity.c -o bin/test_queue.exe
     if ($LASTEXITCODE -ne 0) {
         throw "Compilation failed for test_queue"
     }
@@ -71,6 +71,12 @@ function Run-Tests {
         Write-Host "=== Running test_single_linked_list ===" -ForegroundColor Yellow
         & .\bin\test_single_linked_list.exe
         if ($LASTEXITCODE -ne 0) { Write-Warning "test_single_linked_list failed with exit code $LASTEXITCODE" }
+    }
+
+    if (Test-Path "bin/test_queue.exe") {
+        Write-Host "=== Running test_queue ===" -ForegroundColor Yellow
+        & .\bin\test_queue.exe
+        if ($LASTEXITCODE -ne 0) { Write-Warning "test_queue failed with exit code $LASTEXITCODE" }
     }
 }
 

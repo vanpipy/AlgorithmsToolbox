@@ -1,20 +1,14 @@
 #include "array.h"
-#include "unity.h"
 #include "queue.h"
+#include "unity.h"
 #include "unity_internals.h"
-#include <stdlib.h>
+
 
 struct Queue *queue;
 
-void setUp(void) {
-  queue = create_queue();
-}
+void setUp(void) { queue = create_queue(); }
 
-void tearDown() {
-  if (queue != NULL) {
-    free(queue);
-  }
-}
+void tearDown() {}
 
 void test_enqueue_and_return_size_of_queue(void) {
   enqueue(queue, 0);
@@ -22,9 +16,11 @@ void test_enqueue_and_return_size_of_queue(void) {
 }
 
 void test_dequeue_and_return_value(void) {
-  enqueue(queue, 1);
-  enqueue(queue, 2);
-  TEST_ASSERT_EQUAL_INT(0, dequeue(queue));
+  int a = 1;
+  int b = 2;
+  enqueue(queue, &a);
+  enqueue(queue, &b);
+  TEST_ASSERT_EQUAL_INT(1, dequeue(queue));
 }
 
 int main(void) {
