@@ -11,3 +11,6 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src"]
+
+[project.scripts]
+tests = "src._test_runner:main"

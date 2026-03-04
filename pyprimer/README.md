@@ -18,3 +18,11 @@
 ## 结构说明
 - 打包入口在 pyproject.toml，使用 [tool.hatch.build.targets.wheel].packages = ["src"]
 - 源码放置在 src 目录，当前导出位于 src/__init__.py
+
+## 测试脚本
+- 已在 pyproject.toml 中注册脚本入口：
+  - [project.scripts] tests = "src._test_runner:main"
+- 运行全部测试：
+  - uv run tests
+- 保留原命令：
+  - uv run python -m unittest discover -s test -p "test_*.py" -v
