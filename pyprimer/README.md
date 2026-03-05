@@ -19,10 +19,17 @@
 - 打包入口在 pyproject.toml，使用 [tool.hatch.build.targets.wheel].packages = ["src"]
 - 源码放置在 src 目录，当前导出位于 src/__init__.py
 
-## 测试脚本
-- 已在 pyproject.toml 中注册脚本入口：
-  - [project.scripts] tests = "src._test_runner:main"
+### 测试脚本
+- 查看帮助：
+  - uv run tests -h
+- 指定测试文件/目录（可重复）：
+  - uv run tests -t test/test_array_queue.py
+  - uv run tests -t test/test_array_queue.py -t test/test_dynamic_array_queue.py
+- 关键字过滤（仅运行用例 id 含关键字，如 shrink）：
+  - uv run tests -t test/test_dynamic_array_queue.py -k shrink
+- 指定发现起点与模式：
+  - uv run tests -s test -p "test_*.py"
+- 静默输出：
+  - uv run tests -q
 - 运行全部测试：
   - uv run tests
-- 保留原命令：
-  - uv run python -m unittest discover -s test -p "test_*.py" -v
