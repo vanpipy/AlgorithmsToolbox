@@ -18,11 +18,11 @@ class DynamicArrayQueue:
     def remove(self):
         if self.n <= 0:
             return None
-        if self.n <= self.size // 3:
-            self.resize(1/2)
         x = self.data[self.head]
         self.head = (self.head + 1) % self.size
         self.n -= 1
+        if self.n <= self.size // 3:
+            self.resize(1/2)
         return x
 
     def resize(self, scale = 2):
